@@ -4,7 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import tacos.data.IngredientRepository;
+import tacos.data.UserRepository;
 
 @SpringBootApplication
 public class TacoCloudApplication {
@@ -14,7 +16,7 @@ public class TacoCloudApplication {
     }
 
     @Bean
-    public CommandLineRunner dataLoader(IngredientRepository ingredientRepository) {
+    public CommandLineRunner dataLoader(IngredientRepository ingredientRepository, UserRepository userRepository) {
         return args -> {
             ingredientRepository.save(new Ingredient("FLTO", "Flour Tortilla", Ingredient.Type.WRAP));
             ingredientRepository.save(new Ingredient("COTO", "Corn Tortilla", Ingredient.Type.WRAP));
@@ -26,6 +28,8 @@ public class TacoCloudApplication {
             ingredientRepository.save(new Ingredient("JACK", "Monterrey Jack", Ingredient.Type.CHEESE));
             ingredientRepository.save(new Ingredient("SLSA", "Salsa", Ingredient.Type.SAUCE));
             ingredientRepository.save(new Ingredient("SRCR", "Sour Cream", Ingredient.Type.SAUCE));
+            userRepository.save(new User("user1", new BCryptPasswordEncoder().encode("password1"),
+                    "Spring Genius", "Street", "city", "state", "zip", "phoneNumber"));
         };
     }
 
