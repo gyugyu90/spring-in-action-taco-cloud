@@ -7,9 +7,14 @@
     <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
+<form id="logoutForm" method="post" th:action="@{/logout}">
+    <input type="submit" value="logout">
+</form>
 
 <form method="POST" th:action="@{/orders}" th:object="${order}">
     <h1>Order your taco creations!</h1>
+
+    <h3>Your tacos in this order:</h3>
 
     <img th:src="@{/images/TacoCloud.png}" /> <a th:href="@{/design}"
                                                  id="another">Design another taco</a><br />

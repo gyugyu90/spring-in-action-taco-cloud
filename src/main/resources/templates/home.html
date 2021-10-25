@@ -7,6 +7,13 @@
 </head>
 <body>
   <h1>Welcome to...</h1>
+
+  <form id="logoutForm" method="post" th:action="@{/logout}">
+    <input type="submit" value="logout">
+  </form>
+
+  <a id="design" th:href="@{/design}">Design a taco</a>
+
   <img th:src="@{/images/TacoCloud.png}"/>
 </body>
 </html>

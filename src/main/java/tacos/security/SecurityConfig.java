@@ -30,7 +30,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .access("hasRole('ROLE_USER')")
             .antMatchers("/", "/**").access("permitAll")
             .and()
-            .httpBasic();
+            .formLogin()
+            .loginPage("/login")
+            .and()
+            .logout()
+            .logoutSuccessUrl("/")
+            .and()
+            .csrf();
     }
 
     @Override
