@@ -3,6 +3,9 @@ package tacos.web.api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,14 +25,20 @@ import java.util.Optional;
 @RequestMapping(path = "/design", produces = "application/json")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-public class DesignTacoController {
+public class DesignTacoApiController {
 
     private final TacoRepository tacoRepository;
 
     @GetMapping("/recent")
-    public Iterable<Taco> recentTacos() {
+    public CollectionModel<EntityModel<Taco>> recentTacos() {
         PageRequest pageRequest = PageRequest.of(0, 12, Sort.by("createdAt").descending());
-        return tacoRepository.findAll(pageRequest).getContent();
+
+        var tacos = tacoRepository.findAll(pageRequest).getContent();
+        CollectionModel<EntityModel<Taco>> recentResources = CollectionModel.wrap(tacos);
+        recentResources.add(WebMvcLinkBuilder.linkTo(DesignTacoApiController.class)
+                                             .slash("/recent")
+                                             .withRel("recents"));
+        return recentResources;
     }
 
     @GetMapping("/{id}")
