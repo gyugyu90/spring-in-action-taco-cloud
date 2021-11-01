@@ -21,6 +21,8 @@ import tacos.data.TacoRepository;
 
 import java.util.Optional;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping(path = "/design", produces = "application/json")
 @CrossOrigin(origins = "*")
@@ -35,8 +37,7 @@ public class DesignTacoApiController {
 
         var tacos = tacoRepository.findAll(pageRequest).getContent();
         CollectionModel<EntityModel<Taco>> recentResources = CollectionModel.wrap(tacos);
-        recentResources.add(WebMvcLinkBuilder.linkTo(DesignTacoApiController.class)
-                                             .slash("/recent")
+        recentResources.add(WebMvcLinkBuilder.linkTo(methodOn(DesignTacoApiController.class).recentTacos())
                                              .withRel("recents"));
         return recentResources;
     }
