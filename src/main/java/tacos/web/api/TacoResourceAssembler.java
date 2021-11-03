@@ -5,8 +5,8 @@ import tacos.Taco;
 
 public class TacoResourceAssembler extends RepresentationModelAssemblerSupport<Taco, TacoResource> {
 
-    public TacoResourceAssembler(Class<?> controllerClass, Class<TacoResource> resourceType) {
-        super(controllerClass, resourceType);
+    public TacoResourceAssembler() {
+        super(DesignTacoApiController.class, TacoResource.class);
     }
 
     @Override

@@ -32,14 +32,14 @@ public class DesignTacoApiController {
     private final TacoRepository tacoRepository;
 
     @GetMapping("/recent")
-    public CollectionModel<EntityModel<Taco>> recentTacos() {
+    public CollectionModel<TacoResource> recentTacos() {
         PageRequest pageRequest = PageRequest.of(0, 12, Sort.by("createdAt").descending());
 
         var tacos = tacoRepository.findAll(pageRequest).getContent();
-        CollectionModel<EntityModel<Taco>> recentResources = CollectionModel.wrap(tacos);
-        recentResources.add(WebMvcLinkBuilder.linkTo(methodOn(DesignTacoApiController.class).recentTacos())
+        var tacoResources = new TacoResourceAssembler().toCollectionModel(tacos);
+        tacoResources.add(WebMvcLinkBuilder.linkTo(methodOn(DesignTacoApiController.class).recentTacos())
                                              .withRel("recents"));
-        return recentResources;
+        return tacoResources;
     }
 
     @GetMapping("/{id}")
