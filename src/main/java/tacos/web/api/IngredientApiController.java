@@ -3,15 +3,15 @@ package tacos.web.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import tacos.Ingredient;
 import tacos.data.IngredientRepository;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping(path="/ingredients", produces="application/json")
 @CrossOrigin(origins="*")

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@RestResource(rel = "tacos", path = "tacos")
 public class Taco {
 
     @Id

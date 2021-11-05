@@ -4,3 +4,8 @@ taco:
 
 server:
   port: 8081
+
+spring:
+  data:
+    rest:
+      base-path: /api
