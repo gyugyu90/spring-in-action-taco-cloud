@@ -37,7 +37,27 @@ public class TacoCloudApplication {
             userRepository.save(new User("user1", new BCryptPasswordEncoder().encode("password1"),
                     "Spring Genius", "Street", "city", "state", "zip", "phoneNumber"));
             tacoRepository.save(Taco.builder()
-                                    .name("delicious taco")
+                                    .name("delicious taco1")
+                                    .ingredients(List.of(flourTortilla))
+                                    .build());
+            tacoRepository.save(Taco.builder()
+                                    .name("delicious taco2")
+                                    .ingredients(List.of(flourTortilla))
+                                    .build());
+            tacoRepository.save(Taco.builder()
+                                    .name("delicious taco3")
+                                    .ingredients(List.of(flourTortilla))
+                                    .build());
+            tacoRepository.save(Taco.builder()
+                                    .name("delicious taco4")
+                                    .ingredients(List.of(flourTortilla))
+                                    .build());
+            tacoRepository.save(Taco.builder()
+                                    .name("delicious taco5")
+                                    .ingredients(List.of(flourTortilla))
+                                    .build());
+            tacoRepository.save(Taco.builder()
+                                    .name("delicious taco6")
                                     .ingredients(List.of(flourTortilla))
                                     .build());
         };
