@@ -2,6 +2,7 @@ package tacos;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
@@ -158,6 +159,29 @@ public class ReactorTest {
     static class Player {
         private final String firstName;
         private final String lastName;
+    }
+
+    @Test
+    void buffer() {
+        Flux<String> fruitFlux = Flux.just("apple", "orange", "banana", "kiwi", "strawberry");
+        Flux<List<String>> bufferedFlux = fruitFlux.buffer(3).log();
+
+        StepVerifier.create(bufferedFlux)
+            .expectNext(Arrays.asList("apple", "orange", "banana"))
+            .expectNext(Arrays.asList("kiwi", "strawberry"))
+            .verifyComplete();
+    }
+
+    @Test
+    void collectList() {
+        Flux<String> fruitFlux = Flux.just("apple", "orange", "banana", "kiwi", "strawberry");
+
+        Mono<List<String>> fruitListMono = fruitFlux.collectList();
+
+        StepVerifier
+            .create(fruitListMono)
+            .expectNext(Arrays.asList("apple", "orange", "banana", "kiwi", "strawberry"))
+            .verifyComplete();
     }
 
 }
